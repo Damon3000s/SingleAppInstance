@@ -88,6 +88,9 @@ public static class SingleAppInstance
 				return true;
 			}
 		}
+		catch (DirectoryNotFoundException)
+		{
+		}
 		catch (FileNotFoundException)
 		{
 		}

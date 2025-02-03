@@ -11,8 +11,8 @@ using ktsu.StrongPaths;
 /// </summary>
 public static class SingleAppInstance
 {
-	internal static AbsoluteDirectoryPath PidFolderPath { get; } = AppData.Path;
-	internal static AbsoluteFilePath PidFilePath { get; } = PidFolderPath / $".{nameof(SingleAppInstance)}.pid".As<FileName>();
+	internal static AbsoluteDirectoryPath PidDirectoryPath { get; } = AppData.Path;
+	internal static AbsoluteFilePath PidFilePath { get; } = PidDirectoryPath / $".{nameof(SingleAppInstance)}.pid".As<FileName>();
 
 	/// <summary>
 	/// Exits the application if another instance is already running.
@@ -56,7 +56,8 @@ public static class SingleAppInstance
 
 		// in case there was a race and another instance is starting at the same time we
 		// need to check again to see if we won the lock
-		return !IsAlreadyRunning();
+
+		return IsAlreadyRunning();
 	}
 
 	/// <summary>
@@ -79,7 +80,7 @@ public static class SingleAppInstance
 			if (filePid == currentPid)
 			{
 				//if the pid in the file is the same as the current pid, exit
-				return false;
+				return true;
 			}
 
 			//is the process still running?
@@ -110,7 +111,7 @@ public static class SingleAppInstance
 	/// </remarks>
 	internal static void WritePidFile()
 	{
-		Directory.CreateDirectory(PidFolderPath);
+		Directory.CreateDirectory(PidDirectoryPath);
 		File.WriteAllText(PidFilePath, Environment.ProcessId.ToString(CultureInfo.InvariantCulture));
 	}
 }

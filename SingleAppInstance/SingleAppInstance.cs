@@ -11,7 +11,8 @@ using ktsu.StrongPaths;
 /// </summary>
 public static class SingleAppInstance
 {
-	internal static AbsoluteFilePath PidFilePath { get; } = AppData.Path / $".{nameof(SingleAppInstance)}.pid".As<FileName>();
+	internal static AbsoluteDirectoryPath PidDirectoryPath { get; } = AppData.Path;
+	internal static AbsoluteFilePath PidFilePath { get; } = PidDirectoryPath / $".{nameof(SingleAppInstance)}.pid".As<FileName>();
 
 	/// <summary>
 	/// Exits the application if another instance is already running.
@@ -107,5 +108,9 @@ public static class SingleAppInstance
 	/// <remarks>
 	/// This method writes the current process ID to the PID file in the application data path.
 	/// </remarks>
-	internal static void WritePidFile() => File.WriteAllText(PidFilePath, Environment.ProcessId.ToString(CultureInfo.InvariantCulture));
+	internal static void WritePidFile()
+	{
+		Directory.CreateDirectory(PidDirectoryPath);
+		File.WriteAllText(PidFilePath, Environment.ProcessId.ToString(CultureInfo.InvariantCulture));
+	}
 }

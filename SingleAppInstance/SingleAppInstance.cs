@@ -56,8 +56,7 @@ public static class SingleAppInstance
 
 		// in case there was a race and another instance is starting at the same time we
 		// need to check again to see if we won the lock
-
-		return IsAlreadyRunning();
+		return !IsAlreadyRunning();
 	}
 
 	/// <summary>
@@ -80,7 +79,7 @@ public static class SingleAppInstance
 			if (filePid == currentPid)
 			{
 				//if the pid in the file is the same as the current pid, exit
-				return true;
+				return false;
 			}
 
 			//is the process still running?

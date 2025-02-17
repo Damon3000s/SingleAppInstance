@@ -2,6 +2,7 @@ namespace ktsu.SingleAppInstance;
 
 using System.Diagnostics;
 using System.Globalization;
+
 using ktsu.AppDataStorage;
 using ktsu.Extensions;
 using ktsu.StrongPaths;

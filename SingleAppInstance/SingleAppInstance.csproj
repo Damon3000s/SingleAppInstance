@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="ktsu.AppDataStorage" Version="1.7.1" />
+    <PackageReference Include="ktsu.AppDataStorage" Version="1.7.2" />
   </ItemGroup>
 </Project>

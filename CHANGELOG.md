@@ -1,3 +1,10 @@
+## v1.2.2 (patch)
+
+Changes since v1.2.1:
+
+- Add comprehensive Copilot instructions and memory management guidelines ([@matt-edmondson](https://github.com/matt-edmondson))
+- Add markdownlint configuration file for linting rules ([@matt-edmondson](https://github.com/matt-edmondson))
+
 ## v1.2.1 (patch)
 
 Changes since v1.2.0:

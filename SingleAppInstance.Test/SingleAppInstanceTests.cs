@@ -9,12 +9,20 @@ using System.Text.Json;
 [TestClass]
 public class SingleAppInstanceTests
 {
+	[TestInitialize]
+	public void TestInitialize()
+	{
+		// Ensure the PID directory exists and the file is deleted before each test
+		string pidFilePath = SingleAppInstance.PidFilePath;
+		Directory.CreateDirectory(SingleAppInstance.PidDirectoryPath);
+		File.Delete(pidFilePath);
+	}
+
 	[TestMethod]
 	public void WritePidFile_ShouldCreateFileWithCurrentProcessInfo()
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		File.Delete(pidFilePath);
 
 		// Act
 		SingleAppInstance.WritePidFile();
@@ -35,8 +43,6 @@ public class SingleAppInstanceTests
 	public void IsAlreadyRunning_WhenPidFileDoesNotExist_ShouldReturnFalse()
 	{
 		// Arrange
-		string pidFilePath = SingleAppInstance.PidFilePath;
-		File.Delete(pidFilePath);
 
 		// Act
 		bool result = SingleAppInstance.IsAlreadyRunning();
@@ -50,7 +56,6 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		File.Delete(pidFilePath);
 
 		// Create ProcessInfo with current process ID
 		var currentProcess = Process.GetCurrentProcess();
@@ -77,7 +82,6 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		File.Delete(pidFilePath);
 		int currentPid = Environment.ProcessId;
 		File.WriteAllText(pidFilePath, currentPid.ToString(CultureInfo.InvariantCulture));
 
@@ -93,7 +97,6 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		File.Delete(pidFilePath);
 		var processInfo = new ProcessInfo
 		{
 			ProcessId = -1, // Invalid PID
@@ -117,7 +120,6 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		File.Delete(pidFilePath);
 		File.WriteAllText(pidFilePath, "This is not valid JSON");
 
 		// Act
@@ -132,7 +134,6 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		File.Delete(pidFilePath);
 		File.WriteAllText(pidFilePath, string.Empty);
 
 		// Act
@@ -147,7 +148,6 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		File.Delete(pidFilePath);
 
 		// Verify that no PID file exists at the start
 		Assert.IsFalse(File.Exists(pidFilePath), "PID file should not exist at test start");

@@ -1,0 +1,22 @@
+{
+  "default": true,
+  "line-length": false,
+  "no-trailing-punctuation": {
+    "punctuation": ".,;:!"
+  },
+  "no-hard-tabs": true,
+  "no-multiple-blanks": {
+    "maximum": 1
+  },
+  "no-duplicate-header": true,
+  "no-missing-space-atx": true,
+  "no-missing-space-closed-atx": true,
+  "no-multiple-space-atx": true,
+  "no-space-in-emphasis": true,
+  "no-space-in-links": true,
+  "no-empty-links": true,
+  "no-inline-html": false,
+  "no-bare-urls": false,
+  "no-duplicate-definitions": true,
+  "no-reversed-links": true
+}

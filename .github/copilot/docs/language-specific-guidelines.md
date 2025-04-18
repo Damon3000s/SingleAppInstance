@@ -4,7 +4,8 @@
 
 - Use the latest stable version of .NET and C# as specified in the project
 - Follow the official C# coding conventions and guidelines
-- Use the .NET CLI for building, testing, and running the project, you can use the `-v d` option to get detailed output when required
+- Use any specialized tools you have access to for building, testing, and running the project, but you can fall back to the .NET CLI if you have tried everything else and it still doesn't work
+- Use `dotnet format` to format the code according to the project's style guidelines
 - Before trying to fix any build errors, use the .NET format tool to format the code according to the project's style guidelines and check again to see if the errors persist
 - Use `mstest` when writing unit tests
 - Use `dotnet test -m:1` when running tests to limit the number of parallel test runs to 1, which can help with debugging and resource management

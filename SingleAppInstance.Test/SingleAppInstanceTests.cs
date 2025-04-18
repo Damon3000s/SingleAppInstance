@@ -1,10 +1,11 @@
+// Disable parallel execution of tests to prevent file access conflicts
+[assembly: Parallelize(Workers = 1, Scope = ExecutionScope.ClassLevel)]
+
 namespace ktsu.SingleAppInstance.Test;
 
 using System.Diagnostics;
 using System.Globalization;
 using System.Text.Json;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [TestClass]
 public class SingleAppInstanceTests
@@ -232,14 +233,38 @@ public class SingleAppInstanceTests
 
 		try
 		{
+			// Verify that no PID file exists at the start
+			Assert.IsFalse(File.Exists(pidFilePath), "PID file should not exist at test start");
+
+			// Check if IsAlreadyRunning returns false initially
+			Assert.IsFalse(SingleAppInstance.IsAlreadyRunning(), "IsAlreadyRunning should return false when no PID file exists");
+
 			// Act
 			bool result = SingleAppInstance.ShouldLaunch();
 
 			// Assert
-			Assert.IsTrue(result);
+			Assert.IsTrue(result, "ShouldLaunch should return true when no previous instance was running");
 
 			// ShouldLaunch should create the PID file
-			Assert.IsTrue(File.Exists(pidFilePath));
+			Assert.IsTrue(File.Exists(pidFilePath), "PID file should be created by ShouldLaunch");
+
+			// Read the PID file content for debugging
+			if (File.Exists(pidFilePath))
+			{
+				string fileContent = File.ReadAllText(pidFilePath);
+				Console.WriteLine($"PID file content: {fileContent}");
+
+				try
+				{
+					var processInfo = JsonSerializer.Deserialize<ProcessInfo>(fileContent);
+					Console.WriteLine($"Deserialized ProcessInfo: PID={processInfo?.ProcessId}, Name={processInfo?.ProcessName}");
+					Console.WriteLine($"Current process: PID={Environment.ProcessId}, Name={Process.GetCurrentProcess().ProcessName}");
+				}
+				catch (JsonException ex)
+				{
+					Console.WriteLine($"Failed to deserialize PID file: {ex.Message}");
+				}
+			}
 		}
 		finally
 		{

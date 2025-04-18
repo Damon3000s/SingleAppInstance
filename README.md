@@ -12,23 +12,17 @@ The `SingleAppInstance` class provides a mechanism to ensure that only one insta
 
 ## Installation
 
-To install the `ktsu.SingleAppInstance` package, run the following command in a console:
+To install the `ktsu.SingleAppInstance` package, run the following command:
 
 ```bash
 dotnet add package ktsu.SingleAppInstance
 ```
 
-## Getting Started
-
-To get started with `ktsu.SingleAppInstance`, follow these steps:
-
-1. Install the package using the command above.
-2. Add the necessary `using` directive to your code.
-3. Call the `ExitIfAlreadyRunning` method at the start of your application.
-
 ## Usage
 
-To use the `SingleAppInstance` class, call the `ExitIfAlreadyRunning` method at the start of your application. This method will check if another instance is already running and exit the current instance if so.
+### Basic Usage
+
+To use the `SingleAppInstance` class, call the `ExitIfAlreadyRunning` method at the start of your application:
 
 ```csharp
 using ktsu.SingleAppInstance;
@@ -38,13 +32,16 @@ class Program
     static void Main(string[] args)
     {
         SingleAppInstance.ExitIfAlreadyRunning();
-
-    // Your application code here
+        
+        // Your application code here
+        Console.WriteLine("Application is running.");
     }
 }
 ```
 
-Or if you prefer to explicitly handle the case where another instance is already running, you can call the `ShouldLaunch()` method to check if another instance is running.
+### Custom Launch Logic
+
+If you prefer to explicitly handle the case where another instance is already running:
 
 ```csharp
 using ktsu.SingleAppInstance;
@@ -56,26 +53,42 @@ class Program
         if (SingleAppInstance.ShouldLaunch())
         {
             // Your application code here
+            Console.WriteLine("Application is running.");
         }
         else
         {
             // Handle the case where another instance is already running
             Console.WriteLine("Another instance is already running.");
-            Environment.Exit(1);
         }
+    }
+}
+```
+
+You can also customize the launch condition:
+
+```csharp
+using ktsu.SingleAppInstance;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        SingleAppInstance.ShouldLaunch = () => !File.Exists("custom.lock");
+        if (!SingleAppInstance.ShouldLaunch())
+        {
+            Console.WriteLine("Another instance is already running.");
+            return;
+        }
+
+        Console.WriteLine("Application is running.");
     }
 }
 ```
 
 ## Methods
 
-### `ExitIfAlreadyRunning`
-
-Exits the application if another instance is already running.
-
-### `ShouldLaunch`
-
-Determines whether the application should launch.
+- **`ExitIfAlreadyRunning()`**: Exits the application if another instance is already running.
+- **`ShouldLaunch()`**: Determines whether the application should launch based on whether another instance is running.
 
 ## Contributing
 

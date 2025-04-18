@@ -103,4 +103,49 @@ public class SingleAppInstanceTests
 		// Cleanup
 		File.Delete(pidFilePath);
 	}
+
+	[TestMethod]
+	public void TestExitIfAlreadyRunningWhenNoOtherInstanceIsRunningShouldNotExit()
+	{
+		// Arrange
+		var originalShouldLaunch = SingleAppInstance.ShouldLaunch;
+		SingleAppInstance.ShouldLaunch = () => true;
+
+		// Act & Assert
+		try
+		{
+			SingleAppInstance.ExitIfAlreadyRunning();
+			Assert.IsTrue(true); // If no exception is thrown, the test passes
+		}
+		catch (Environment.ExitException)
+		{
+			Assert.Fail("ExitIfAlreadyRunning should not exit when no other instance is running.");
+		}
+		finally
+		{
+			// Cleanup
+			SingleAppInstance.ShouldLaunch = originalShouldLaunch;
+		}
+	}
+
+	[TestMethod]
+	public void TestShouldLaunchWithCustomLogicShouldReturnExpectedValue()
+	{
+		// Arrange
+		var originalShouldLaunch = SingleAppInstance.ShouldLaunch;
+		SingleAppInstance.ShouldLaunch = () => !File.Exists("custom.lock");
+
+		// Act
+		File.WriteAllText("custom.lock", "");
+		var resultWhenLocked = SingleAppInstance.ShouldLaunch();
+		File.Delete("custom.lock");
+		var resultWhenUnlocked = SingleAppInstance.ShouldLaunch();
+
+		// Assert
+		Assert.IsFalse(resultWhenLocked);
+		Assert.IsTrue(resultWhenUnlocked);
+
+		// Cleanup
+		SingleAppInstance.ShouldLaunch = originalShouldLaunch;
+	}
 }

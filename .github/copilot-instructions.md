@@ -129,6 +129,13 @@ During all chats, continually update your memory with new information, establish
   - Validation logic updates
   - Documentation improvements
 
+## Workflow and Process Guidelines
+
+- Before running any command, check if you have a specialized tool for the task and use the tool if available
+- If you make code changes, ensure you immediately run the appropriate commands to verify the changes for style conformance, and build/test success
+- After any operation, check if you need to update your memory with new information or observations
+- If you encounter any issues or errors, check the documentation for the specific command or tool you are using
+
 ## Coding Guidelines and Style Guides
 
 ### General Coding Guidelines
@@ -150,6 +157,7 @@ During all chats, continually update your memory with new information, establish
 - Use appropriate formatting tools to ensure code adheres to project style guidelines
 - Use appropriate build commands to verify code compiles correctly
 - Use appropriate testing commands to ensure code functions as expected
+- Lines in code files should not contain trailing whitespace, especially blank lines
 
 ### Documentation Guidelines
 

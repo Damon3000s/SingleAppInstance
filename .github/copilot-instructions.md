@@ -181,10 +181,12 @@ During all chats, continually update your memory with new information, establish
 
 - Use the latest stable version of .NET and C# as specified in the project
 - Follow the official C# coding conventions and guidelines
-- Use `dotnet format` to format code according to the project's style rules
-- Use `dotnet build` to verify the code compiles correctly and retrieve any build errors
-- Use `dotnet test` to run unit tests and verify the code functions as expected
-- Ensure all dependencies are compatible with the specified version
+- Use the .NET CLI for building, testing, and running the project, you can use the `-v d` option to get detailed output when required
+- Before trying to fix any build errors, use the .NET format tool to format the code according to the project's style guidelines and check again to see if the errors persist
+- Use `mstest` when writing unit tests
+- Use `dotnet test --collect:"XPlat Code Coverage"` to collect code coverage data for the tests
+- Check if `Directory.Build.targets` has the required references before adding new references to the project file
+- Review test results and coverage reports to identify areas for improvement
 
 #### Markdown Guidelines
 

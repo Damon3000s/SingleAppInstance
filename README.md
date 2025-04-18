@@ -7,8 +7,10 @@ The `SingleAppInstance` class provides a mechanism to ensure that only one insta
 ## Features
 
 - **Single Instance Enforcement**: Ensures that only one instance of the application is running.
-- **PID File Management**: Uses a PID file to track the running instance.
-- **Race Condition Handling**: Handles potential race conditions when starting multiple instances simultaneously.
+- **Enhanced Process Identification**: Uses detailed process information (PID, process name, start time, main module filename) to accurately identify running instances.
+- **PID File Management**: Stores process information in JSON format in the application data directory.
+- **Race Condition Handling**: Handles potential race conditions when starting multiple instances simultaneously with a timeout mechanism.
+- **Backward Compatibility**: Maintains compatibility with older versions that only stored the PID.
 
 ## Installation
 
@@ -64,31 +66,30 @@ class Program
 }
 ```
 
-You can also customize the launch condition:
-
-```csharp
-using ktsu.SingleAppInstance;
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        SingleAppInstance.ShouldLaunch = () => !File.Exists("custom.lock");
-        if (!SingleAppInstance.ShouldLaunch())
-        {
-            Console.WriteLine("Another instance is already running.");
-            return;
-        }
-
-        Console.WriteLine("Application is running.");
-    }
-}
-```
-
 ## Methods
 
-- **`ExitIfAlreadyRunning()`**: Exits the application if another instance is already running.
-- **`ShouldLaunch()`**: Determines whether the application should launch based on whether another instance is running.
+- **`ExitIfAlreadyRunning()`**: Exits the application with a status code of 0 if another instance is already running.
+- **`ShouldLaunch()`**: Determines whether the application should launch based on whether another instance is running. It also handles writing the current process information to a PID file and implements a waiting mechanism to handle potential race conditions.
+
+## Technical Implementation
+
+Under the hood, SingleAppInstance:
+
+1. Stores a JSON-serialized `ProcessInfo` object containing:
+   - Process ID
+   - Process name
+   - Start time
+   - Main module filename
+
+2. Uses the application data directory to store the PID file. The file is named `.SingleAppInstance.pid`.
+
+3. When checking for running instances, it:
+   - Reads the PID file
+   - Verifies if a process with the stored ID exists
+   - Confirms it's the same application by comparing process name and executable path
+   - Handles access restrictions and various edge cases
+
+4. Implements a 1-second timeout in `ShouldLaunch()` to detect race conditions when multiple instances start simultaneously.
 
 ## Contributing
 

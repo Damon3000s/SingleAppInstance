@@ -1,5 +1,4 @@
-// Disable parallel execution of tests to prevent file access conflicts
-[assembly: Parallelize(Workers = 1, Scope = ExecutionScope.ClassLevel)]
+[assembly: DoNotParallelize()]
 
 namespace ktsu.SingleAppInstance.Test;
 
@@ -15,35 +14,21 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		if (File.Exists(pidFilePath))
-		{
-			File.Delete(pidFilePath);
-		}
+		File.Delete(pidFilePath);
 
-		try
-		{
-			// Act
-			SingleAppInstance.WritePidFile();
+		// Act
+		SingleAppInstance.WritePidFile();
 
-			// Assert
-			Assert.IsTrue(File.Exists(pidFilePath));
+		// Assert
+		Assert.IsTrue(File.Exists(pidFilePath));
 
-			// Verify file content
-			string fileContent = File.ReadAllText(pidFilePath);
-			var processInfo = JsonSerializer.Deserialize<ProcessInfo>(fileContent);
+		// Verify file content
+		string fileContent = File.ReadAllText(pidFilePath);
+		var processInfo = JsonSerializer.Deserialize<ProcessInfo>(fileContent);
 
-			Assert.IsNotNull(processInfo);
-			Assert.AreEqual(Environment.ProcessId, processInfo.ProcessId);
-			Assert.AreEqual(Process.GetCurrentProcess().ProcessName, processInfo.ProcessName);
-		}
-		finally
-		{
-			// Cleanup
-			if (File.Exists(pidFilePath))
-			{
-				File.Delete(pidFilePath);
-			}
-		}
+		Assert.IsNotNull(processInfo);
+		Assert.AreEqual(Environment.ProcessId, processInfo.ProcessId);
+		Assert.AreEqual(Process.GetCurrentProcess().ProcessName, processInfo.ProcessName);
 	}
 
 	[TestMethod]
@@ -51,27 +36,13 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		if (File.Exists(pidFilePath))
-		{
-			File.Delete(pidFilePath);
-		}
+		File.Delete(pidFilePath);
 
-		try
-		{
-			// Act
-			bool result = SingleAppInstance.IsAlreadyRunning();
+		// Act
+		bool result = SingleAppInstance.IsAlreadyRunning();
 
-			// Assert
-			Assert.IsFalse(result);
-		}
-		finally
-		{
-			// Cleanup
-			if (File.Exists(pidFilePath))
-			{
-				File.Delete(pidFilePath);
-			}
-		}
+		// Assert
+		Assert.IsFalse(result);
 	}
 
 	[TestMethod]
@@ -79,6 +50,7 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
+		File.Delete(pidFilePath);
 
 		// Create ProcessInfo with current process ID
 		var currentProcess = Process.GetCurrentProcess();
@@ -93,22 +65,11 @@ public class SingleAppInstanceTests
 		string json = JsonSerializer.Serialize(processInfo);
 		File.WriteAllText(pidFilePath, json);
 
-		try
-		{
-			// Act
-			bool result = SingleAppInstance.IsAlreadyRunning();
+		// Act
+		bool result = SingleAppInstance.IsAlreadyRunning();
 
-			// Assert
-			Assert.IsFalse(result);
-		}
-		finally
-		{
-			// Cleanup
-			if (File.Exists(pidFilePath))
-			{
-				File.Delete(pidFilePath);
-			}
-		}
+		// Assert
+		Assert.IsFalse(result);
 	}
 
 	[TestMethod]
@@ -116,25 +77,15 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
+		File.Delete(pidFilePath);
 		int currentPid = Environment.ProcessId;
 		File.WriteAllText(pidFilePath, currentPid.ToString(CultureInfo.InvariantCulture));
 
-		try
-		{
-			// Act
-			bool result = SingleAppInstance.IsAlreadyRunning();
+		// Act
+		bool result = SingleAppInstance.IsAlreadyRunning();
 
-			// Assert
-			Assert.IsFalse(result); // Should return false because it's the current process
-		}
-		finally
-		{
-			// Cleanup
-			if (File.Exists(pidFilePath))
-			{
-				File.Delete(pidFilePath);
-			}
-		}
+		// Assert
+		Assert.IsFalse(result); // Should return false because it's the current process
 	}
 
 	[TestMethod]
@@ -142,6 +93,7 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
+		File.Delete(pidFilePath);
 		var processInfo = new ProcessInfo
 		{
 			ProcessId = -1, // Invalid PID
@@ -153,22 +105,11 @@ public class SingleAppInstanceTests
 		string json = JsonSerializer.Serialize(processInfo);
 		File.WriteAllText(pidFilePath, json);
 
-		try
-		{
-			// Act
-			bool result = SingleAppInstance.IsAlreadyRunning();
+		// Act
+		bool result = SingleAppInstance.IsAlreadyRunning();
 
-			// Assert
-			Assert.IsFalse(result);
-		}
-		finally
-		{
-			// Cleanup
-			if (File.Exists(pidFilePath))
-			{
-				File.Delete(pidFilePath);
-			}
-		}
+		// Assert
+		Assert.IsFalse(result);
 	}
 
 	[TestMethod]
@@ -176,24 +117,14 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
+		File.Delete(pidFilePath);
 		File.WriteAllText(pidFilePath, "This is not valid JSON");
 
-		try
-		{
-			// Act
-			bool result = SingleAppInstance.IsAlreadyRunning();
+		// Act
+		bool result = SingleAppInstance.IsAlreadyRunning();
 
-			// Assert
-			Assert.IsFalse(result); // Should handle the error gracefully and return false
-		}
-		finally
-		{
-			// Cleanup
-			if (File.Exists(pidFilePath))
-			{
-				File.Delete(pidFilePath);
-			}
-		}
+		// Assert
+		Assert.IsFalse(result); // Should handle the error gracefully and return false
 	}
 
 	[TestMethod]
@@ -201,24 +132,14 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
+		File.Delete(pidFilePath);
 		File.WriteAllText(pidFilePath, string.Empty);
 
-		try
-		{
-			// Act
-			bool result = SingleAppInstance.IsAlreadyRunning();
+		// Act
+		bool result = SingleAppInstance.IsAlreadyRunning();
 
-			// Assert
-			Assert.IsFalse(result); // Should handle the error gracefully and return false
-		}
-		finally
-		{
-			// Cleanup
-			if (File.Exists(pidFilePath))
-			{
-				File.Delete(pidFilePath);
-			}
-		}
+		// Assert
+		Assert.IsFalse(result); // Should handle the error gracefully and return false
 	}
 
 	[TestMethod]
@@ -226,52 +147,38 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
+		File.Delete(pidFilePath);
+
+		// Verify that no PID file exists at the start
+		Assert.IsFalse(File.Exists(pidFilePath), "PID file should not exist at test start");
+
+		// Check if IsAlreadyRunning returns false initially
+		Assert.IsFalse(SingleAppInstance.IsAlreadyRunning(), "IsAlreadyRunning should return false when no PID file exists");
+
+		// Act
+		bool result = SingleAppInstance.ShouldLaunch();
+
+		// Assert
+		Assert.IsTrue(result, "ShouldLaunch should return true when no previous instance was running");
+
+		// ShouldLaunch should create the PID file
+		Assert.IsTrue(File.Exists(pidFilePath), "PID file should be created by ShouldLaunch");
+
+		// Read the PID file content for debugging
 		if (File.Exists(pidFilePath))
 		{
-			File.Delete(pidFilePath);
-		}
+			string fileContent = File.ReadAllText(pidFilePath);
+			Console.WriteLine($"PID file content: {fileContent}");
 
-		try
-		{
-			// Verify that no PID file exists at the start
-			Assert.IsFalse(File.Exists(pidFilePath), "PID file should not exist at test start");
-
-			// Check if IsAlreadyRunning returns false initially
-			Assert.IsFalse(SingleAppInstance.IsAlreadyRunning(), "IsAlreadyRunning should return false when no PID file exists");
-
-			// Act
-			bool result = SingleAppInstance.ShouldLaunch();
-
-			// Assert
-			Assert.IsTrue(result, "ShouldLaunch should return true when no previous instance was running");
-
-			// ShouldLaunch should create the PID file
-			Assert.IsTrue(File.Exists(pidFilePath), "PID file should be created by ShouldLaunch");
-
-			// Read the PID file content for debugging
-			if (File.Exists(pidFilePath))
+			try
 			{
-				string fileContent = File.ReadAllText(pidFilePath);
-				Console.WriteLine($"PID file content: {fileContent}");
-
-				try
-				{
-					var processInfo = JsonSerializer.Deserialize<ProcessInfo>(fileContent);
-					Console.WriteLine($"Deserialized ProcessInfo: PID={processInfo?.ProcessId}, Name={processInfo?.ProcessName}");
-					Console.WriteLine($"Current process: PID={Environment.ProcessId}, Name={Process.GetCurrentProcess().ProcessName}");
-				}
-				catch (JsonException ex)
-				{
-					Console.WriteLine($"Failed to deserialize PID file: {ex.Message}");
-				}
+				var processInfo = JsonSerializer.Deserialize<ProcessInfo>(fileContent);
+				Console.WriteLine($"Deserialized ProcessInfo: PID={processInfo?.ProcessId}, Name={processInfo?.ProcessName}");
+				Console.WriteLine($"Current process: PID={Environment.ProcessId}, Name={Process.GetCurrentProcess().ProcessName}");
 			}
-		}
-		finally
-		{
-			// Cleanup
-			if (File.Exists(pidFilePath))
+			catch (JsonException ex)
 			{
-				File.Delete(pidFilePath);
+				Console.WriteLine($"Failed to deserialize PID file: {ex.Message}");
 			}
 		}
 	}

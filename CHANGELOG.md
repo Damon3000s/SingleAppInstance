@@ -1,3 +1,8 @@
+## v1.2.6-pre.1 (prerelease)
+
+Changes since v1.2.5:
+
+- Sync scripts\PSBuild.psm1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
 ## v1.2.5 (patch)
 
 Changes since v1.2.4:
@@ -16,10 +21,7 @@ Changes since v1.2.5-pre.1:
 - Bump ktsu.AppDataStorage from 1.7.2 to 1.11.0 in the ktsu group ([@dependabot[bot]](https://github.com/dependabot[bot]))
 ## v1.2.5-pre.1 (prerelease)
 
-Changes since v1.2.4:
-
-- Sync .github\workflows\dotnet.yml ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync .editorconfig ([@ktsu[bot]](https://github.com/ktsu[bot]))
+Incremental prerelease update.
 ## v1.2.4 (patch)
 
 Changes since v1.2.3:

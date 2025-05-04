@@ -1,3 +1,7 @@
+// Copyright (c) ktsu.dev
+// All rights reserved.
+// Licensed under the MIT license.
+
 [assembly: DoNotParallelize()]
 
 namespace ktsu.SingleAppInstance.Test;
@@ -31,7 +35,7 @@ public class SingleAppInstanceTests
 		Assert.IsTrue(File.Exists(pidFilePath));
 
 		// Verify file content
-		string fileContent = File.ReadAllText(pidFilePath);
+		var fileContent = File.ReadAllText(pidFilePath);
 		var processInfo = JsonSerializer.Deserialize<ProcessInfo>(fileContent);
 
 		Assert.IsNotNull(processInfo);
@@ -45,7 +49,7 @@ public class SingleAppInstanceTests
 		// Arrange
 
 		// Act
-		bool result = SingleAppInstance.IsAlreadyRunning();
+		var result = SingleAppInstance.IsAlreadyRunning();
 
 		// Assert
 		Assert.IsFalse(result);
@@ -67,11 +71,11 @@ public class SingleAppInstanceTests
 			MainModuleFileName = currentProcess.MainModule?.FileName
 		};
 
-		string json = JsonSerializer.Serialize(processInfo);
+		var json = JsonSerializer.Serialize(processInfo);
 		File.WriteAllText(pidFilePath, json);
 
 		// Act
-		bool result = SingleAppInstance.IsAlreadyRunning();
+		var result = SingleAppInstance.IsAlreadyRunning();
 
 		// Assert
 		Assert.IsFalse(result);
@@ -82,11 +86,11 @@ public class SingleAppInstanceTests
 	{
 		// Arrange
 		string pidFilePath = SingleAppInstance.PidFilePath;
-		int currentPid = Environment.ProcessId;
+		var currentPid = Environment.ProcessId;
 		File.WriteAllText(pidFilePath, currentPid.ToString(CultureInfo.InvariantCulture));
 
 		// Act
-		bool result = SingleAppInstance.IsAlreadyRunning();
+		var result = SingleAppInstance.IsAlreadyRunning();
 
 		// Assert
 		Assert.IsFalse(result); // Should return false because it's the current process
@@ -105,11 +109,11 @@ public class SingleAppInstanceTests
 			MainModuleFileName = "NonExistentFile.exe"
 		};
 
-		string json = JsonSerializer.Serialize(processInfo);
+		var json = JsonSerializer.Serialize(processInfo);
 		File.WriteAllText(pidFilePath, json);
 
 		// Act
-		bool result = SingleAppInstance.IsAlreadyRunning();
+		var result = SingleAppInstance.IsAlreadyRunning();
 
 		// Assert
 		Assert.IsFalse(result);
@@ -123,7 +127,7 @@ public class SingleAppInstanceTests
 		File.WriteAllText(pidFilePath, "This is not valid JSON");
 
 		// Act
-		bool result = SingleAppInstance.IsAlreadyRunning();
+		var result = SingleAppInstance.IsAlreadyRunning();
 
 		// Assert
 		Assert.IsFalse(result); // Should handle the error gracefully and return false
@@ -137,7 +141,7 @@ public class SingleAppInstanceTests
 		File.WriteAllText(pidFilePath, string.Empty);
 
 		// Act
-		bool result = SingleAppInstance.IsAlreadyRunning();
+		var result = SingleAppInstance.IsAlreadyRunning();
 
 		// Assert
 		Assert.IsFalse(result); // Should handle the error gracefully and return false
@@ -156,7 +160,7 @@ public class SingleAppInstanceTests
 		Assert.IsFalse(SingleAppInstance.IsAlreadyRunning(), "IsAlreadyRunning should return false when no PID file exists");
 
 		// Act
-		bool result = SingleAppInstance.ShouldLaunch();
+		var result = SingleAppInstance.ShouldLaunch();
 
 		// Assert
 		Assert.IsTrue(result, "ShouldLaunch should return true when no previous instance was running");
@@ -167,7 +171,7 @@ public class SingleAppInstanceTests
 		// Read the PID file content for debugging
 		if (File.Exists(pidFilePath))
 		{
-			string fileContent = File.ReadAllText(pidFilePath);
+			var fileContent = File.ReadAllText(pidFilePath);
 			Console.WriteLine($"PID file content: {fileContent}");
 
 			try

@@ -1,3 +1,7 @@
+// Copyright (c) ktsu.dev
+// All rights reserved.
+// Licensed under the MIT license.
+
 namespace ktsu.SingleAppInstance;
 
 using System.Diagnostics;
@@ -99,10 +103,10 @@ public static class SingleAppInstance
 	/// </remarks>
 	internal static bool IsAlreadyRunning()
 	{
-		int currentPid = Environment.ProcessId;
+		var currentPid = Environment.ProcessId;
 		try
 		{
-			string pidFileContents = File.ReadAllText(PidFilePath);
+			var pidFileContents = File.ReadAllText(PidFilePath);
 
 			// Try to deserialize the JSON content
 			ProcessInfo? storedProcess;
@@ -117,7 +121,7 @@ public static class SingleAppInstance
 			catch (JsonException)
 			{
 				// Fallback for backward compatibility with older versions that only stored the PID
-				if (int.TryParse(pidFileContents, CultureInfo.InvariantCulture, out int filePid))
+				if (int.TryParse(pidFileContents, CultureInfo.InvariantCulture, out var filePid))
 				{
 					// If it's the current process, allow it to run
 					if (filePid == currentPid)
@@ -223,7 +227,7 @@ public static class SingleAppInstance
 			MainModuleFileName = currentProcess.MainModule?.FileName
 		};
 
-		string json = JsonSerializer.Serialize(processInfo);
+		var json = JsonSerializer.Serialize(processInfo);
 		File.WriteAllText(PidFilePath, json);
 	}
 }

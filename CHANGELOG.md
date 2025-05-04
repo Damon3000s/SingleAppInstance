@@ -1,3 +1,9 @@
+## v1.2.5 (patch)
+
+Changes since v1.2.4:
+
+- Remove .markdownlint.json configuration file, update DESCRIPTION.md for clarity, and change project SDK references in .csproj files to ktsu.Sdk.Lib and ktsu.Sdk.Test version 1.8.0. ([@matt-edmondson](https://github.com/matt-edmondson))
+
 ## v1.2.4 (patch)
 
 Changes since v1.2.3:

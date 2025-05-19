@@ -1,6 +1,6 @@
-## v1.2.6-pre.16 (prerelease)
+## v1.2.6-pre.17 (prerelease)
 
-Changes since v1.2.6-pre.15:
+Changes since v1.2.6-pre.16:
 
 - Initial commit ([@matt-edmondson](https://github.com/matt-edmondson))
 - Add tests for SingleAppInstance behavior with no other instance running and custom launch logic ([@matt-edmondson](https://github.com/matt-edmondson))

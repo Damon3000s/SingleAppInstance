@@ -1,6 +1,6 @@
 MIT License
 
-https://github.com/ktsu-dev/ktsu-dev/SingleAppInstance
+https://github.com/ktsu-dev/SingleAppInstance
 
 Copyright (c) 2023-2025 ktsu-dev
 

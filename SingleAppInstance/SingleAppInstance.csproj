@@ -1,5 +1,5 @@
 <Project Sdk="ktsu.Sdk.Lib/1.8.0">
   <ItemGroup>
-    <PackageReference Include="ktsu.AppDataStorage" Version="1.15.0" />
+    <PackageReference Include="ktsu.AppDataStorage" Version="1.15.4" />
   </ItemGroup>
 </Project>

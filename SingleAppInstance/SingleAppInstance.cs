@@ -9,8 +9,8 @@ using System.Globalization;
 using System.Text.Json;
 
 using ktsu.AppDataStorage;
-using ktsu.Extensions;
-using ktsu.StrongPaths;
+using ktsu.Semantics.Paths;
+using ktsu.Semantics.Strings;
 
 /// <summary>
 /// Provides a mechanism to ensure that only one instance of an application is running at a time.
@@ -103,10 +103,15 @@ public static class SingleAppInstance
 	/// </remarks>
 	internal static bool IsAlreadyRunning()
 	{
-		var currentPid = Environment.ProcessId;
+		int currentPid;
+#if NET5_0_OR_GREATER
+		currentPid = Environment.ProcessId;
+#else
+		currentPid = Process.GetCurrentProcess().Id;
+#endif
 		try
 		{
-			var pidFileContents = File.ReadAllText(PidFilePath);
+			string pidFileContents = File.ReadAllText(PidFilePath);
 
 			// Try to deserialize the JSON content
 			ProcessInfo? storedProcess;
@@ -121,7 +126,7 @@ public static class SingleAppInstance
 			catch (JsonException)
 			{
 				// Fallback for backward compatibility with older versions that only stored the PID
-				if (int.TryParse(pidFileContents, CultureInfo.InvariantCulture, out var filePid))
+				if (int.TryParse(pidFileContents, NumberStyles.Integer, CultureInfo.InvariantCulture, out int filePid))
 				{
 					// If it's the current process, allow it to run
 					if (filePid == currentPid)
@@ -145,7 +150,7 @@ public static class SingleAppInstance
 			// Check if the process is still running
 			try
 			{
-				var runningProcess = Process.GetProcessById(storedProcess.ProcessId);
+				Process runningProcess = Process.GetProcessById(storedProcess.ProcessId);
 
 				// Verify it's the same application by checking name and module filename
 				if (runningProcess != null &&
@@ -173,7 +178,7 @@ public static class SingleAppInstance
 
 				try
 				{
-					var process = Process.GetProcessById(storedProcess.ProcessId);
+					Process process = Process.GetProcessById(storedProcess.ProcessId);
 
 					if (process != null && !process.HasExited)
 					{
@@ -218,8 +223,8 @@ public static class SingleAppInstance
 	{
 		Directory.CreateDirectory(PidDirectoryPath);
 
-		var currentProcess = Process.GetCurrentProcess();
-		var processInfo = new ProcessInfo
+		Process currentProcess = Process.GetCurrentProcess();
+		ProcessInfo processInfo = new()
 		{
 			ProcessId = currentProcess.Id,
 			ProcessName = currentProcess.ProcessName,
@@ -227,7 +232,7 @@ public static class SingleAppInstance
 			MainModuleFileName = currentProcess.MainModule?.FileName
 		};
 
-		var json = JsonSerializer.Serialize(processInfo);
+		string json = JsonSerializer.Serialize(processInfo);
 		File.WriteAllText(PidFilePath, json);
 	}
 }

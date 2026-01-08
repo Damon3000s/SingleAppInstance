@@ -1,3 +1,8 @@
+## v1.2.8-pre.1 (prerelease)
+
+Changes since v1.2.7:
+
+- Bump the ktsu group with 1 update ([@dependabot[bot]](https://github.com/dependabot[bot]))
 ## v1.2.7 (patch)
 
 Changes since v1.2.6:
@@ -38,13 +43,7 @@ Changes since v1.2.7-pre.1:
 - Sync scripts\PSBuild.psm1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
 ## v1.2.7-pre.1 (prerelease)
 
-Changes since v1.2.6:
-
-- Sync .gitattributes ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync .runsettings ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync .github\workflows\dotnet.yml ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync scripts\update-winget-manifests.ps1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync scripts\PSBuild.psm1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
+Incremental prerelease update.
 ## v1.2.6 (patch)
 
 Changes since v1.2.5:

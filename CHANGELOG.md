@@ -1,13 +1,24 @@
-## v1.2.7-pre.5 (prerelease)
+## v1.2.7 (patch)
 
-Changes since v1.2.7-pre.4:
+Changes since v1.2.6:
 
 - Remove redundant package references from test project ([@matt-edmondson](https://github.com/matt-edmondson))
+- Merge remote-tracking branch 'refs/remotes/origin/main' ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync scripts\update-winget-manifests.ps1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
 - Bump the ktsu group with 5 updates ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Sync .gitattributes ([@ktsu[bot]](https://github.com/ktsu[bot]))
 - Bump MSTest.TestAdapter and MSTest.TestFramework ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Sync .runsettings ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync .github\workflows\dotnet.yml ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync .github\workflows\dotnet.yml ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync .github\workflows\dotnet.yml ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync scripts\PSBuild.psm1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
 - Bump Microsoft.Testing.Extensions.CodeCoverage from 18.1.0 to 18.3.1 ([@dependabot[bot]](https://github.com/dependabot[bot]))
 - Bump MSTest.Sdk from 3.10.2 to 4.0.2 ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Sync scripts\update-winget-manifests.ps1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
 - Bump the system group with 1 update ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Sync scripts\PSBuild.psm1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- [patch] Fix TargetFrameworks property in test project ([@matt-edmondson](https://github.com/matt-edmondson))
 ## v1.2.7-pre.4 (prerelease)
 
 Changes since v1.2.7-pre.3:

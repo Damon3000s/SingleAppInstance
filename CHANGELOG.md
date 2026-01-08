@@ -2,6 +2,7 @@
 
 Changes since v1.2.7-pre.4:
 
+- Remove redundant package references from test project ([@matt-edmondson](https://github.com/matt-edmondson))
 - Bump the ktsu group with 5 updates ([@dependabot[bot]](https://github.com/dependabot[bot]))
 - Bump MSTest.TestAdapter and MSTest.TestFramework ([@dependabot[bot]](https://github.com/dependabot[bot]))
 - Bump Microsoft.Testing.Extensions.CodeCoverage from 18.1.0 to 18.3.1 ([@dependabot[bot]](https://github.com/dependabot[bot]))

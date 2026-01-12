@@ -1,8 +1,8 @@
-## v1.2.8-pre.2 (prerelease)
+## v1.2.8 (patch)
 
-Changes since v1.2.8-pre.1:
+Changes since v1.2.7:
 
-- Bump the microsoft group with 1 update ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Remove unnecessary PackageReference for Microsoft.Testing.Extensions.CodeCoverage ([@matt-edmondson](https://github.com/matt-edmondson))
 ## v1.2.8-pre.1 (prerelease)
 
 Changes since v1.2.7:

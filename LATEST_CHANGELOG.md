@@ -1,5 +1,6 @@
-## v1.2.9 (patch)
+## v1.2.10-pre.1 (prerelease)
 
-Changes since v1.2.8:
+Changes since v1.2.9:
 
-- Remove unnecessary PackageReference for Polyfill from SingleAppInstance project ([@matt-edmondson](https://github.com/matt-edmondson))
+- Bump the ktsu group with 1 update ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump Polyfill from 8.8.0 to 9.7.2 ([@dependabot[bot]](https://github.com/dependabot[bot]))

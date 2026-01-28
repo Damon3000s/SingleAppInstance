@@ -32,7 +32,7 @@ public class SingleAppInstanceTests
 		SingleAppInstance.WritePidFile();
 
 		// Assert
-		Assert.IsTrue(File.Exists(pidFilePath));
+		Assert.IsTrue(File.Exists(pidFilePath), "PID file should be created after calling WritePidFile");
 
 		// Verify file content
 		string fileContent = File.ReadAllText(pidFilePath);

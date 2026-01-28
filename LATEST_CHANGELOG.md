@@ -1,5 +1,5 @@
-## v1.2.10 (patch)
+## v1.2.11-pre.1 (prerelease)
 
-Changes since v1.2.9:
+Changes since v1.2.10:
 
-- migrate to dotnet 10 ([@matt-edmondson](https://github.com/matt-edmondson))
+- Bump the ktsu group with 5 updates ([@dependabot[bot]](https://github.com/dependabot[bot]))

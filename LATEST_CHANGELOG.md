@@ -1,6 +1,4 @@
-## v1.2.13 (patch)
+## v1.2.13
 
-Changes since v1.2.12:
-
-- Remove legacy build scripts ([@matt-edmondson](https://github.com/matt-edmondson))
+No significant changes detected since v1.2.13.
 

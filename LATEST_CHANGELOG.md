@@ -1,6 +1,4 @@
-## v1.3.43 (patch)
+## v1.3.43
 
-Changes since v1.3.42:
-
-- chore: update ktsu.Sdk to 2.21.1 [patch] ([@matt-edmondson](https://github.com/matt-edmondson))
+No significant changes detected since v1.3.43.
 

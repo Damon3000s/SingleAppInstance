@@ -4,10 +4,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="ktsu.AppDataStorage" Version="1.16.34" />
-    <PackageVersion Include="ktsu.Semantics.Paths" Version="2.9.3" />
+    <PackageVersion Include="ktsu.Semantics.Paths" Version="2.9.6" />
     <PackageVersion Include="Polyfill" Version="11.2.0" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
-    <PackageVersion Include="ktsu.Semantics.Strings" Version="2.9.3" />
+    <PackageVersion Include="ktsu.Semantics.Strings" Version="2.9.6" />
     <PackageVersion Include="System.Text.Json" Version="10.0.11" />
   </ItemGroup>
 </Project>

@@ -5,8 +5,16 @@
   <ItemGroup>
     <PackageReference Include="ktsu.AppDataStorage" />
     <PackageReference Include="ktsu.Semantics.Paths" />
-    <PackageReference Include="Polyfill" />
-  
+    <PackageReference Include="Polyfill" PrivateAssets="all" />
     <PackageReference Include="System.Text.Json" />
-    <PackageReference Include="ktsu.Semantics.Strings" /></ItemGroup>
+    <PackageReference Include="ktsu.Semantics.Strings" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="System.Memory" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Threading.Tasks.Extensions" />
+  </ItemGroup>
 </Project>

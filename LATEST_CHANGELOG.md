@@ -1,4 +1,6 @@
-## v1.3.44
+## v1.3.45 (patch)
 
-No significant changes detected since v1.3.44.
+Changes since v1.3.44:
+
+- Stop Update SDKs failing when there is nothing to update ([@matt-edmondson](https://github.com/matt-edmondson))
 

@@ -8,7 +8,7 @@
 [![NuGet Downloads](https://img.shields.io/nuget/dt/ktsu.SingleAppInstance?label=Downloads&logo=nuget)](https://nuget.org/packages/ktsu.SingleAppInstance)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ktsu-dev/SingleAppInstance?label=Commits&logo=github)](https://github.com/ktsu-dev/SingleAppInstance/commits/main)
 [![GitHub contributors](https://img.shields.io/github/contributors/ktsu-dev/SingleAppInstance?label=Contributors&logo=github)](https://github.com/ktsu-dev/SingleAppInstance/graphs/contributors)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ktsu-dev/SingleAppInstance/dotnet.yml?label=Build&logo=github)](https://github.com/ktsu-dev/SingleAppInstance/actions)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ktsu-dev/SingleAppInstance/dotnet.yml?branch=main&label=Build&logo=github)](https://github.com/ktsu-dev/SingleAppInstance/actions)
 
 ## Introduction
 
